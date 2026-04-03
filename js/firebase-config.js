@@ -3,14 +3,16 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebas
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
-// TODO: Replace the following with your app's Firebase project configuration
+// =====================================
+// STRICTLY ALPHA COIN PROJECT SETTINGS
+// =====================================
 const firebaseConfig = {
-    // apiKey: "YOUR_API_KEY",
-    // authDomain: "your-app.firebaseapp.com",
-    // projectId: "your-project",
-    // storageBucket: "your-project.appspot.com",
+    // apiKey: "YOUR_ALPHA_COIN_API_KEY",
+    // authDomain: "alpha-coin-jewelry.firebaseapp.com",
+    // projectId: "alpha-coin-jewelry",
+    // storageBucket: "alpha-coin-jewelry.appspot.com",
     // messagingSenderId: "123456789",
-    // appId: "YOUR_APP_ID"
+    // appId: "YOUR_NEW_APP_ID"
 };
 
 // Initialize Firebase only if config is provided
