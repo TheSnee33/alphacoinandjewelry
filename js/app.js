@@ -23,21 +23,21 @@ const views = {
         </section>
         <section class="category-grid">
             <div class="category-card" onclick="app.navigate('jewelry')">
-                <img src="assets/images/ring.png" alt="Jewelry" class="category-img" onerror="this.src=''; this.style.background='#333'">
+                <div class="dropzone">Click or Drop Image Here</div>
                 <div class="category-content">
                     <h3>Jewelry & Repair</h3>
                     <p>Broken jewelry? We can fix that. Looking for the perfect piece? Explore our designs.</p>
                 </div>
             </div>
             <div class="category-card" onclick="app.navigate('coins')">
-                <img src="assets/images/higginson_watch_coin.stl" alt="Coins" class="category-img" onerror="this.src=''; this.style.background='#333'">
+                <div class="dropzone">Click or Drop Image Here</div>
                 <div class="category-content">
                     <h3>Coins & Bullion</h3>
                     <p>Looking to invest? We sell and buy gold, silver coins, and bullion at fair market value.</p>
                 </div>
             </div>
             <div class="category-card" onclick="app.navigate('antiques')">
-                <img src="assets/images/20260317_160915.jpg" alt="Antiques" class="category-img" onerror="this.src=''; this.style.background='#333'">
+                <div class="dropzone">Click or Drop Image Here</div>
                 <div class="category-content">
                     <h3>Antiques</h3>
                     <p>Unique finds and timeless treasures. Discover the perfect antique piece for your collection.</p>
@@ -111,9 +111,13 @@ function renderProductPage(title, items) {
         html += `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">No items currently in stock in this category.</p>`;
     } else {
         items.forEach(item => {
+            const imageHtml = item.image ? 
+                `<img src="${item.image}" alt="${item.name}" class="product-img" onerror="this.src=''; this.style.background='#333'">` : 
+                `<div class="dropzone">Click or Drop Image Here</div>`;
+                
             html += `
                 <div class="product-card">
-                    <img src="${item.image}" alt="${item.name}" class="product-img" onerror="this.src=''; this.style.background='#333'">
+                    ${imageHtml}
                     <div class="product-info">
                         <h3 class="product-title">${item.name}</h3>
                         <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:15px;">${item.description}</p>
@@ -160,7 +164,63 @@ const app = {
             appContent.innerHTML = views[viewName]();
             window.scrollTo(0, 0);
             window.location.hash = viewName;
+            this.setupDropzones();
         }
+    },
+
+    setupDropzones() {
+        const dropzones = document.querySelectorAll('.dropzone');
+        dropzones.forEach(zone => {
+            zone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                zone.classList.add('drag-over');
+            });
+            zone.addEventListener('dragleave', () => {
+                zone.classList.remove('drag-over');
+            });
+            zone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                zone.classList.remove('drag-over');
+                
+                // Allow user to upload dropping file
+                if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                    const file = e.dataTransfer.files[0];
+                    if (file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+                        reader.onload = (event) => {
+                            zone.style.backgroundImage = "url('" + event.target.result + "')";
+                            zone.style.backgroundSize = 'cover';
+                            zone.style.backgroundPosition = 'center';
+                            zone.innerText = '';
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                }
+            });
+            zone.addEventListener('click', (e) => {
+                // Prevent routing if we click the dropzone for the demo
+                e.stopPropagation();
+                // Create a hidden input to trigger file selection
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = 'image/*';
+                input.onchange = (event) => {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (ev) => {
+                            zone.style.backgroundImage = "url('" + ev.target.result + "')";
+                            zone.style.backgroundSize = 'cover';
+                            zone.style.backgroundPosition = 'center';
+                            zone.innerText = '';
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                };
+                input.click();
+            });
+        });
     },
 
     addToCart(productId) {

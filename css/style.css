@@ -248,7 +248,7 @@ a:hover {
     align-items: center;
     justify-content: center;
     text-align: center;
-    background: linear-gradient(rgba(10,10,10,0.8), rgba(10,10,10,0.7)), url('../assets/images/Higginson Jewelry & Antiques 01.png') no-repeat center center/cover;
+    background: linear-gradient(rgba(10,10,10,0.85), rgba(10,10,10,0.9)), url('../assets/images/Alpha Coin & Jewelry 01_crop.png') no-repeat center center/contain;
     position: relative;
 }
 
@@ -341,6 +341,35 @@ a:hover {
     width: 100%;
     object-fit: cover;
     border-bottom: 2px solid var(--gold-primary);
+}
+
+/* Dropzone Styles for Demo */
+.dropzone {
+    height: 200px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px dashed rgba(212, 175, 55, 0.4);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+    padding: 10px;
+}
+
+.dropzone.drag-over {
+    background: rgba(212, 175, 55, 0.1);
+    border-color: var(--gold-primary);
+    color: var(--gold-primary);
+}
+
+.product-card .dropzone {
+    height: 250px;
+    border-bottom: 2px solid var(--gold-primary);
+    border-top: none; border-left: none; border-right: none;
 }
 
 .product-info {
