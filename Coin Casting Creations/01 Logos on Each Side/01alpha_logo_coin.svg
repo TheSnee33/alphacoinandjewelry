@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1016 1016" width="1016" height="1016">
+  <!-- Alpha Logo Coin: 4 inch diameter = 101.6mm = 1016px at 10px/mm -->
+  <!-- Front: Alpha (α) with diamond ring | Back: FLAT (for gluing) -->
+
+  <!-- Reeded edge ring (outer) -->
+  <circle cx="508" cy="508" r="508" fill="#D4C490"/>
+  <circle cx="508" cy="508" r="505" fill="none" stroke="#8B7A2A" stroke-width="1.5"/>
+
+  <!-- Reeded edge pattern (tiny ridges like a quarter) -->
+  <g id="reeded-edge" stroke="#B8A44A" stroke-width="1.2">
+    <!-- 180 ridges around the circumference -->
+    <circle cx="508" cy="508" r="503" fill="none" stroke="#A89030" stroke-width="10" stroke-dasharray="3.5,5.2"/>
+    <circle cx="508" cy="508" r="497" fill="none" stroke="#C4A93A" stroke-width="2" stroke-dasharray="3.5,5.2" stroke-dashoffset="4.35"/>
+  </g>
+
+  <!-- Coin face background -->
+  <circle cx="508" cy="508" r="490" fill="#EDE5D0"/>
+
+  <!-- Inner rim bead (raised border ring) -->
+  <circle cx="508" cy="508" r="470" fill="none" stroke="#B8A44A" stroke-width="4"/>
+  <circle cx="508" cy="508" r="465" fill="none" stroke="#C4A93A" stroke-width="1.5"/>
+
+  <!-- ═══ ALPHA (α) SYMBOL WITH DIAMOND RING ═══ -->
+  <g transform="translate(508, 440)">
+    <!-- Main alpha loop (the O part) -->
+    <ellipse cx="-25" cy="20" rx="155" ry="150" fill="none" stroke="#B08D2A" stroke-width="44" stroke-linecap="round"/>
+    <!-- Inner highlight on loop -->
+    <ellipse cx="-25" cy="20" rx="155" ry="150" fill="none" stroke="#D4B84A" stroke-width="12" opacity="0.5"/>
+
+    <!-- Alpha tail (the swooping tail to the right) -->
+    <path d="M 85 80 Q 140 140 155 195 Q 165 230 135 250 Q 115 260 100 245"
+          fill="none" stroke="#B08D2A" stroke-width="44" stroke-linecap="round"/>
+    <!-- Tail highlight -->
+    <path d="M 85 80 Q 140 140 155 195 Q 165 230 135 250 Q 115 260 100 245"
+          fill="none" stroke="#D4B84A" stroke-width="12" opacity="0.5" stroke-linecap="round"/>
+
+    <!-- Leaf/vine texture on the ring body -->
+    <path d="M -170 -30 Q -155 -60 -130 -70" fill="none" stroke="#8B7620" stroke-width="3" opacity="0.6"/>
+    <path d="M -160 50 Q -140 30 -115 25" fill="none" stroke="#8B7620" stroke-width="3" opacity="0.6"/>
+    <path d="M -40 -130 Q -10 -145 20 -140" fill="none" stroke="#8B7620" stroke-width="3" opacity="0.6"/>
+    <path d="M 50 -110 Q 75 -125 100 -115" fill="none" stroke="#8B7620" stroke-width="3" opacity="0.6"/>
+    <path d="M 120 -50 Q 145 -65 160 -50" fill="none" stroke="#8B7620" stroke-width="3" opacity="0.6"/>
+    <path d="M -130 100 Q -110 80 -85 85" fill="none" stroke="#8B7620" stroke-width="3" opacity="0.6"/>
+
+    <!-- Crown/prong setting at top of alpha -->
+    <rect x="-45" y="-180" width="90" height="22" rx="11" fill="#B08D2A"/>
+    <!-- Small diamonds in the setting band -->
+    <circle cx="-30" cy="-169" r="4" fill="#E8E0C8" stroke="#8B7620" stroke-width="1"/>
+    <circle cx="-15" cy="-169" r="4" fill="#E8E0C8" stroke="#8B7620" stroke-width="1"/>
+    <circle cx="0" cy="-169" r="4" fill="#E8E0C8" stroke="#8B7620" stroke-width="1"/>
+    <circle cx="15" cy="-169" r="4" fill="#E8E0C8" stroke="#8B7620" stroke-width="1"/>
+    <circle cx="30" cy="-169" r="4" fill="#E8E0C8" stroke="#8B7620" stroke-width="1"/>
+
+    <!-- Prongs -->
+    <path d="M -40 -180 L -50 -220 L -30 -245" fill="none" stroke="#B08D2A" stroke-width="8" stroke-linecap="round"/>
+    <path d="M -15 -180 L -18 -225 L -10 -250" fill="none" stroke="#B08D2A" stroke-width="7" stroke-linecap="round"/>
+    <path d="M 15 -180 L 18 -225 L 10 -250" fill="none" stroke="#B08D2A" stroke-width="7" stroke-linecap="round"/>
+    <path d="M 40 -180 L 50 -220 L 30 -245" fill="none" stroke="#B08D2A" stroke-width="8" stroke-linecap="round"/>
+
+    <!-- Diamond gem -->
+    <polygon points="0,-310 -55,-255 0,-195 55,-255" fill="#C8DDE8" stroke="#8AACB8" stroke-width="3"/>
+    <!-- Diamond facets -->
+    <polygon points="0,-310 -55,-255 0,-265" fill="#D8EAF0" opacity="0.8"/>
+    <polygon points="0,-310 55,-255 0,-265" fill="#A0C0D0" opacity="0.7"/>
+    <polygon points="-55,-255 0,-195 -20,-250" fill="#B0D0DC" opacity="0.6"/>
+    <polygon points="55,-255 0,-195 20,-250" fill="#90B0C0" opacity="0.6"/>
+    <line x1="0" y1="-310" x2="0" y2="-195" stroke="#E0F0F8" stroke-width="1.5" opacity="0.5"/>
+    <line x1="-55" y1="-255" x2="55" y2="-255" stroke="#E0F0F8" stroke-width="1.5" opacity="0.5"/>
+  </g>
+
+  <!-- Top arc: ALPHA COIN & JEWELRY -->
+  <path id="topArc" d="M 140,508 A 370,370 0 0,1 876,508" fill="none"/>
+  <text font-family="Palatino, Georgia, serif" font-size="38" fill="#1A1208" letter-spacing="6" font-weight="700">
+    <textPath href="#topArc" startOffset="10%">ALPHA COIN &amp; JEWELRY</textPath>
+  </text>
+
+  <!-- Bottom arc: website -->
+  <path id="bottomArc" d="M 165,620 A 370,370 0 0,0 851,620" fill="none"/>
+  <text font-family="Georgia, serif" font-size="28" fill="#5A4A1A" letter-spacing="4">
+    <textPath href="#bottomArc" startOffset="12%">alphacoinandjewelry.com</textPath>
+  </text>
+
+  <!-- Year -->
+  <text x="508" y="870"
+    font-family="Palatino, Georgia, serif"
+    font-size="36"
+    letter-spacing="8"
+    font-weight="700"
+    text-anchor="middle"
+    fill="#8B7A2A">2026</text>
+
+  <!-- Decorative stars -->
+  <text x="165" y="520" font-size="22" fill="#C4A93A" text-anchor="middle">&#10022;</text>
+  <text x="851" y="520" font-size="22" fill="#C4A93A" text-anchor="middle">&#10022;</text>
+
+</svg>
