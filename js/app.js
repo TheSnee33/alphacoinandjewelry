@@ -185,11 +185,13 @@ function renderCartPage() {
             <div style="display:flex; justify-content:space-between; margin-bottom:20px; font-size:1.4rem; font-weight:bold; color:var(--gold-primary);"><span>Total Include Tax</span> <span>$${total.toFixed(2)}</span></div>
             
             <h4 style="margin-bottom:15px;">Select Payment Method to Checkout</h4>
-            <div style="display:flex; gap:10px; flex-wrap:wrap;">
-                <button class="btn-primary" style="flex:1; min-width:120px; background:#008CFF; color:white; border:none;" onclick="app.checkout('Venmo')"><i class="fab fa-vimeo-v"></i> Venmo</button>
-                <button class="btn-primary" style="flex:1; min-width:120px; background:#00D632; color:white; border:none;" onclick="app.checkout('CashApp')"><i class="fas fa-dollar-sign"></i> CashApp</button>
-                <button class="btn-primary" style="flex:1; min-width:120px; background:#003087; color:white; border:none;" onclick="app.checkout('PayPal')"><i class="fab fa-paypal"></i> PayPal</button>
-                <button class="btn-primary" style="flex:1; min-width:120px; background:#7417ea; color:white; border:none;" onclick="app.checkout('Zelle')">Zelle</button>
+            <div style="display:flex; gap:10px; width: 100%;">
+                <button class="btn-primary" style="flex:1; padding:10px 5px; font-size:0.85rem; background:#333333; color:white; border:1px solid rgba(255,255,255,0.2);" onclick="app.checkout('Credit/Debit Card')"><i class="fas fa-credit-card"></i> Credit/Debit Card</button>
+                <button class="btn-primary" style="flex:1; padding:10px 5px; font-size:0.85rem; background:#008CFF; color:white; border:none;" onclick="app.checkout('Venmo')"><i class="fab fa-vimeo-v"></i> Venmo</button>
+                <button class="btn-primary" style="flex:1; padding:10px 5px; font-size:0.85rem; background:#00D632; color:white; border:none;" onclick="app.checkout('CashApp')"><i class="fas fa-dollar-sign"></i> CashApp</button>
+                <button class="btn-primary" style="flex:1; padding:10px 5px; font-size:0.85rem; background:#003087; color:white; border:none;" onclick="app.checkout('PayPal')"><i class="fab fa-paypal"></i> PayPal</button>
+                <button class="btn-primary" style="flex:1; padding:10px 5px; font-size:0.85rem; background:#7417ea; color:white; border:none;" onclick="app.checkout('Zelle')">Zelle</button>
+                <button class="btn-primary" style="flex:1; padding:10px 5px; font-size:0.85rem; background:#F7931A; color:white; border:none;" onclick="app.checkout('Cryptocurrency')"><i class="fab fa-bitcoin"></i> Cryptocurrency</button>
             </div>
         </div>
     `;
