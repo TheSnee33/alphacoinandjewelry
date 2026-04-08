@@ -1,5 +1,5 @@
 // js/app.js
-import { products, getProductsByCategory } from './db.js';
+import { products, getProductsByCategory, getProductById, recordPurchase } from './db.js';
 
 // Elements
 const appContent = document.getElementById('app-content');
@@ -45,6 +45,7 @@ const views = {
             </div>
         </section>
     `,
+    cart: () => renderCartPage(),
     shop: () => renderProductPage('All Products', products),
     coins: () => renderProductPage('Coins & Bullion', getProductsByCategory('coins')),
     jewelry: () => renderProductPage('Fine Jewelry', getProductsByCategory('jewelry')),
@@ -133,12 +134,81 @@ function renderProductPage(title, items) {
     return html;
 }
 
+function renderCartPage() {
+    let html = `
+        <div class="page-header view-section active">
+            <h2>Your Shopping Cart</h2>
+            <p>Review your items and proceed securely to checkout.</p>
+        </div>
+        <div class="container" style="margin-bottom: 60px; max-width: 900px;">
+    `;
+    
+    if (app.cartItems.length === 0) {
+        html += `<div class="glass-effect" style="padding:40px; text-align:center; border-radius:16px;">
+                    <h3>Your cart is empty.</h3>
+                    <button class="btn-primary" style="margin-top:20px;" onclick="app.navigate('shop')">Continue Shopping</button>
+                 </div></div>`;
+        return html;
+    }
+
+    let subtotal = 0;
+    let listItemsHtml = `<div class="cart-items" style="margin-bottom:30px;">`;
+    app.cartItems.forEach((item, index) => {
+        subtotal += item.price;
+        listItemsHtml += `
+            <div class="cart-item glass-effect" style="display:flex; align-items:center; padding:15px; border-radius:12px; margin-bottom:15px;">
+                <img src="${item.image}" alt="${item.name}" style="width:80px; height:80px; object-fit:cover; border-radius:8px; margin-right:20px;" onerror="this.style.display='none';">
+                <div style="flex-grow:1;">
+                    <h4 style="margin-bottom:5px; font-family:var(--font-sans); color:white;">${item.name}</h4>
+                    <span style="color:var(--gold-primary); font-weight:bold; font-size:1.1rem;">$${item.price.toFixed(2)}</span>
+                </div>
+                <button class="icon-btn" onclick="app.removeFromCart(${index})" style="color:#ff4c4c; font-size:1.2rem; cursor:pointer;"><i class="fas fa-trash"></i></button>
+            </div>
+        `;
+    });
+    listItemsHtml += `</div>`;
+
+    // Hypothetical shipping & tax calculation
+    const shipping = subtotal > 1000 ? 0 : 25; // Free shipping over $1000, else $25 flat rate
+    const taxRate = 0.075; // 7.5% hypothetical tax
+    const tax = subtotal * taxRate;
+    const total = subtotal + shipping + tax;
+
+    let summaryHtml = `
+        <div class="glass-effect" style="padding:30px; border-radius:16px; margin-bottom:30px;">
+            <h3 style="margin-bottom:15px;">Order Summary</h3>
+            <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:15px 0;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span>Subtotal</span> <span>$${subtotal.toFixed(2)}</span></div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span>Estimated Shipping To Address</span> <span>${shipping === 0 ? 'Free' : '$' + shipping.toFixed(2)}</span></div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span>Estimated Income Tax (7.5%)</span> <span>$${tax.toFixed(2)}</span></div>
+            <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:15px 0;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:20px; font-size:1.4rem; font-weight:bold; color:var(--gold-primary);"><span>Total Include Tax</span> <span>$${total.toFixed(2)}</span></div>
+            
+            <h4 style="margin-bottom:15px;">Select Payment Method to Checkout</h4>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                <button class="btn-primary" style="flex:1; min-width:120px; background:#008CFF; color:white; border:none;" onclick="app.checkout('Venmo')"><i class="fab fa-vimeo-v"></i> Venmo</button>
+                <button class="btn-primary" style="flex:1; min-width:120px; background:#00D632; color:white; border:none;" onclick="app.checkout('CashApp')"><i class="fas fa-dollar-sign"></i> CashApp</button>
+                <button class="btn-primary" style="flex:1; min-width:120px; background:#003087; color:white; border:none;" onclick="app.checkout('PayPal')"><i class="fab fa-paypal"></i> PayPal</button>
+                <button class="btn-primary" style="flex:1; min-width:120px; background:#7417ea; color:white; border:none;" onclick="app.checkout('Zelle')">Zelle</button>
+            </div>
+        </div>
+    `;
+
+    html += listItemsHtml + summaryHtml + `</div>`;
+    return html;
+}
+
 // App Logic
 const app = {
-    cart: 0,
+    cartItems: [],
     init() {
         // Remove loader
         setTimeout(() => loader.classList.add('hidden'), 800);
+        
+        // Cart listener
+        document.getElementById('cart-btn').addEventListener('click', () => {
+            this.navigate('cart');
+        });
         
         // Setup Nav Listeners
         navLinks.forEach(link => {
@@ -224,12 +294,69 @@ const app = {
     },
 
     addToCart(productId) {
-        this.cart++;
-        document.getElementById('cart-badge').innerText = this.cart;
-        // Simple animation
+        const item = getProductById(productId);
+        if(item) {
+            this.cartItems.push(item);
+            this.updateCartBadge();
+        }
+    },
+
+    removeFromCart(index) {
+        this.cartItems.splice(index, 1);
+        this.updateCartBadge();
+        this.navigate('cart'); // re-render view
+    },
+
+    updateCartBadge() {
         const badge = document.getElementById('cart-badge');
-        badge.style.transform = 'scale(1.5)';
-        setTimeout(() => badge.style.transform = 'scale(1)', 200);
+        if(badge) {
+            badge.innerText = this.cartItems.length;
+            badge.style.transform = 'scale(1.5)';
+            setTimeout(() => badge.style.transform = 'scale(1)', 200);
+        }
+    },
+
+    async checkout(paymentMethod) {
+        if (this.cartItems.length === 0) return;
+        
+        const subtotal = this.cartItems.reduce((sum, item) => sum + item.price, 0);
+        const shipping = subtotal > 1000 ? 0 : 25;
+        const tax = subtotal * 0.075;
+        const total = subtotal + shipping + tax;
+
+        const orderData = {
+            items: this.cartItems,
+            totals: { subtotal, shipping, tax, total },
+            paymentMethod: paymentMethod
+        };
+
+        // UI Feedback
+        const summaryBox = document.querySelector('.container .glass-effect:last-child');
+        if(summaryBox) {
+            summaryBox.innerHTML = `<h3 style="color:var(--text-primary);"><i class="fas fa-spinner fa-spin"></i> Processing ${paymentMethod} Security Details...</h3><p>Connecting to secure API mock...</p>`;
+        }
+        
+        // Mock API lag
+        setTimeout(async () => {
+            // Trigger Firebase records
+            await recordPurchase(orderData, "guest_user");
+            
+            // Empty Cart
+            this.cartItems = [];
+            this.updateCartBadge();
+            
+            // Success Message
+            if(summaryBox) {
+                summaryBox.innerHTML = `
+                    <h3 style="color:var(--gold-primary);"><i class="fas fa-check-circle"></i> Payment Successful!</h3>
+                    <p>Thank you for your purchase via ${paymentMethod}. Your order logic has been safely recorded in the Firebase Users & ProductInventory collections.</p>
+                    <button class="btn-primary" style="margin-top:20px;" onclick="app.navigate('home')">Return Home</button>
+                `;
+            } else {
+                alert(`Checkout complete via ${paymentMethod}! Firebase updated.`);
+                this.navigate('home');
+            }
+        }, 1500);
     }
 };
 

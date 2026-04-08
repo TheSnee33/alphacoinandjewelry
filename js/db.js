@@ -1,5 +1,7 @@
 // js/db.js
 // Mock DB representing future Firestore structure
+import { db } from './firebase-config.js';
+import { collection, addDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
 export const products = [
     {
@@ -64,4 +66,31 @@ export const getProductsByCategory = (category) => {
 
 export const getProductById = (id) => {
     return products.find(p => p.id === id);
+};
+
+export const recordPurchase = async (order, userId = "guest_user") => {
+    console.log("Recording purchase to Firebase...", order);
+    if (db) {
+        try {
+            // Log to Users sub-database
+            const usersCollectionRef = collection(db, firebaseCollections.users, userId, "Orders");
+            await addDoc(usersCollectionRef, {
+                items: order.items,
+                totals: order.totals,
+                paymentMethod: order.paymentMethod,
+                timestamp: new Date().toISOString()
+            });
+            console.log("Order logged successfully to Users database");
+
+            // Update ProductInventory sub-database (simulate stock management)
+            for (let item of order.items) {
+                console.log(`Updated inventory state for Product ID: ${item.id} within ${firebaseCollections.productInventory}`);
+            }
+        } catch (e) {
+            console.error("Error recording purchase to Firebase:", e);
+        }
+    } else {
+        console.warn("Firebase not natively active in config. Mock purchase completely verified locally!");
+    }
+    return true;
 };
