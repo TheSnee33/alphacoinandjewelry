@@ -8,7 +8,7 @@ export const products = [
         category: "coins",
         price: 850.00,
         description: "10 gram pure gold bar from Valcambi Suisse.",
-        image: "" 
+        image: "assets/images/scraped/Home Page/Valcambi-Gold-Bar-10-gram3.png" 
     },
     {
         id: 2,
@@ -16,7 +16,7 @@ export const products = [
         category: "coins",
         price: 2400.00,
         description: "1 oz .9999 fine gold Canadian Maple Leaf.",
-        image: ""
+        image: "assets/images/scraped/Home Page/Gold-Canadian-Maple-Leaf-1-oz-1.png"
     },
     {
         id: 3,
@@ -24,7 +24,7 @@ export const products = [
         category: "coins",
         price: 1250.00,
         description: "1/2 oz American Gold Eagle.",
-        image: ""
+        image: "assets/images/scraped/Home Page/American-Gold-Eagle-12-oz-2.png"
     },
     {
         id: 4,
@@ -32,7 +32,7 @@ export const products = [
         category: "antiques",
         price: 400.00,
         description: "Authentic Vintage Gibson 1950s refrigerator.",
-        image: ""
+        image: "assets/images/scraped/Antiques Page/antique-blank-camera-269810-1067x800.jpg"
     },
     {
         id: 5,
@@ -40,7 +40,7 @@ export const products = [
         category: "jewelry",
         price: 1200.00,
         description: "Exquisite 14k gold diamond ring.",
-        image: ""
+        image: "assets/images/scraped/Home Page/jewelryicon-768x768.png"
     },
     {
         id: 6,
@@ -48,9 +48,15 @@ export const products = [
         category: "coins",
         price: 3200.00,
         description: "100 oz .999 fine silver bar.",
-        image: ""
+        image: "assets/images/scraped/Home Page/Johnson-Matthey-Silver-Bar1.webp"
     }
 ];
+
+// Firebase Schema Collections as requested
+export const firebaseCollections = {
+    users: "Users",
+    productInventory: "ProductInventory"
+};
 
 export const getProductsByCategory = (category) => {
     return products.filter(p => p.category === category);

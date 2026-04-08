@@ -23,21 +23,21 @@ const views = {
         </section>
         <section class="category-grid">
             <div class="category-card" onclick="app.navigate('jewelry')">
-                <div class="dropzone">Click or Drop Image Here</div>
+                <img src="assets/images/scraped/Home Page/jewelryicon-768x768.png" alt="Jewelry" class="category-img" onerror="this.style.display='none';">
                 <div class="category-content">
                     <h3>Jewelry & Repair</h3>
                     <p>Broken jewelry? We can fix that. Looking for the perfect piece? Explore our designs.</p>
                 </div>
             </div>
             <div class="category-card" onclick="app.navigate('coins')">
-                <div class="dropzone">Click or Drop Image Here</div>
+                <img src="assets/images/scraped/Home Page/coin-600x600.jpg" alt="Coins" class="category-img" onerror="this.style.display='none';">
                 <div class="category-content">
                     <h3>Coins & Bullion</h3>
                     <p>Looking to invest? We sell and buy gold, silver coins, and bullion at fair market value.</p>
                 </div>
             </div>
             <div class="category-card" onclick="app.navigate('antiques')">
-                <div class="dropzone">Click or Drop Image Here</div>
+                <img src="assets/images/scraped/Antiques Page/antique-blank-camera-269810-1067x800.jpg" alt="Antiques" class="category-img" onerror="this.style.display='none';">
                 <div class="category-content">
                     <h3>Antiques</h3>
                     <p>Unique finds and timeless treasures. Discover the perfect antique piece for your collection.</p>
