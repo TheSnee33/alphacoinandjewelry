@@ -319,46 +319,10 @@ const app = {
     },
 
     async checkout(paymentMethod) {
-        if (this.cartItems.length === 0) return;
-        
-        const subtotal = this.cartItems.reduce((sum, item) => sum + item.price, 0);
-        const shipping = subtotal > 1000 ? 0 : 25;
-        const tax = subtotal * 0.075;
-        const total = subtotal + shipping + tax;
-
-        const orderData = {
-            items: this.cartItems,
-            totals: { subtotal, shipping, tax, total },
-            paymentMethod: paymentMethod
-        };
-
-        // UI Feedback
-        const summaryBox = document.querySelector('.container .glass-effect:last-child');
-        if(summaryBox) {
-            summaryBox.innerHTML = `<h3 style="color:var(--text-primary);"><i class="fas fa-spinner fa-spin"></i> Processing ${paymentMethod} Security Details...</h3><p>Connecting to secure API mock...</p>`;
-        }
-        
-        // Mock API lag
-        setTimeout(async () => {
-            // Trigger Firebase records
-            await recordPurchase(orderData, "guest_user");
-            
-            // Empty Cart
-            this.cartItems = [];
-            this.updateCartBadge();
-            
-            // Success Message
-            if(summaryBox) {
-                summaryBox.innerHTML = `
-                    <h3 style="color:var(--gold-primary);"><i class="fas fa-check-circle"></i> Payment Successful!</h3>
-                    <p>Thank you for your purchase via ${paymentMethod}. Your order logic has been safely recorded in the Firebase Users & ProductInventory collections.</p>
-                    <button class="btn-primary" style="margin-top:20px;" onclick="app.navigate('home')">Return Home</button>
-                `;
-            } else {
-                alert(`Checkout complete via ${paymentMethod}! Firebase updated.`);
-                this.navigate('home');
-            }
-        }, 1500);
+        // Disabled during demo phase per user request until business bank accounts are linked
+        console.log(`Selected payment method: ${paymentMethod}. Checkout disabled in demo phase.`);
+        // To prevent user confusion if they click it repeatedly expecting something
+        // alert("Checkout is temporarily disabled while we connect our banking systems. Check back soon!");
     }
 };
 
