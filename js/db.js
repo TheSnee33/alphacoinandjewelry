@@ -1,6 +1,6 @@
 // js/db.js
 // Mock DB representing future Firestore structure
-import { db } from './firebase-config.js';
+import { db, storage } from './firebase-config.js';
 import { collection, addDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
 export const products = [
@@ -57,7 +57,12 @@ export const products = [
 // Firebase Schema Collections as requested
 export const firebaseCollections = {
     users: "Users",
-    productInventory: "ProductInventory"
+    productInventory: "ProductInventory",
+    antiques: "Antiques Page",
+    gold: "Gold Page",
+    home: "Home Page",
+    jewelry: "Jewelry Page",
+    silver: "Silver Page"
 };
 
 export const getProductsByCategory = (category) => {

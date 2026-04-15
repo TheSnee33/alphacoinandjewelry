@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpha Coin & Jewelry | Database Admin Portal</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .admin-container {
+            max-width: 800px;
+            margin: 100px auto;
+            padding: 40px;
+            text-align: center;
+        }
+        #log-area {
+            text-align: left;
+            background: #2a2a2a;
+            color: #4CAF50;
+            padding: 20px;
+            height: 300px;
+            overflow-y: scroll;
+            font-family: monospace;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .admin-controls {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h2>Admin Data Uploader</h2>
+            </div>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">Back to Website</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="admin-container glass-effect">
+        <h2>Populate Firebase Database</h2>
+        <p>1. Ensure your Firebase Firestore/Storage Rules allow read/write (Test Mode).</p>
+        <p>2. Select the "Website Image Scrape" parent directory. This tool will recursively upload images and create Database entries in their respective category collections.</p>
+        
+        <div class="admin-controls">
+            <!-- directory and webkitdirectory allow folder selection -->
+            <input type="file" id="folderInput" webkitdirectory directory multiple style="display:none;" />
+            <button class="btn-primary" onclick="document.getElementById('folderInput').click()">Select Asset Directory</button>
+        </div>
+
+        <div id="log-area">
+            <div>Waiting for folder selection...</div>
+        </div>
+    </div>
+
+    <script type="module" src="js/admin.js"></script>
+</body>
+</html>

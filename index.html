@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <!-- Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
     <div id="loader" class="loader">
@@ -99,6 +101,7 @@
                     <label>Password</label>
                     <input type="password" id="login-password" required>
                 </div>
+                <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" style="margin-bottom: 15px;"></div>
                 <button type="submit" class="btn-primary full-width">Log In</button>
                 <p class="auth-hint"><a href="#">Lost your password?</a></p>
             </form>
