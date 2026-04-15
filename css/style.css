@@ -318,8 +318,8 @@ a:hover {
 /* Product Grid */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
 }
 
 .product-card {
@@ -337,7 +337,7 @@ a:hover {
 }
 
 .product-img {
-    height: 250px;
+    height: 180px;
     width: 100%;
     object-fit: cover;
     border-bottom: 2px solid var(--gold-primary);
@@ -367,7 +367,7 @@ a:hover {
 }
 
 .product-card .dropzone {
-    height: 250px;
+    height: 180px;
     border-bottom: 2px solid var(--gold-primary);
     border-top: none; border-left: none; border-right: none;
 }
@@ -380,14 +380,14 @@ a:hover {
 }
 
 .product-title {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     margin-bottom: 10px;
     font-family: var(--font-sans);
     color: var(--text-primary);
 }
 
 .product-price {
-    font-size: 1.4rem;
+    font-size: 1.25rem;
     color: var(--gold-primary);
     font-weight: bold;
     margin-bottom: 15px;
@@ -501,6 +501,16 @@ a:hover {
     background: linear-gradient(to bottom, rgba(30,30,30,0.8), var(--bg-dark));
     border-bottom: 1px solid rgba(212,175,55,0.1);
     margin-bottom: 40px;
+}
+
+.page-header h2 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.page-header p {
+    font-size: 1.2rem;
+    color: var(--text-muted);
 }
 
 /* Footer */
