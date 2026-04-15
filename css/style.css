@@ -318,8 +318,8 @@ a:hover {
 /* Product Grid */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
 }
 
 .product-card {
@@ -337,7 +337,7 @@ a:hover {
 }
 
 .product-img {
-    height: 180px;
+    height: 120px;
     width: 100%;
     object-fit: cover;
     border-bottom: 2px solid var(--gold-primary);
@@ -367,13 +367,13 @@ a:hover {
 }
 
 .product-card .dropzone {
-    height: 180px;
+    height: 120px;
     border-bottom: 2px solid var(--gold-primary);
     border-top: none; border-left: none; border-right: none;
 }
 
 .product-info {
-    padding: 20px;
+    padding: 12px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -504,12 +504,12 @@ a:hover {
 }
 
 .page-header h2 {
-    font-size: 3rem;
+    font-size: 32pt;
     margin-bottom: 10px;
 }
 
 .page-header p {
-    font-size: 1.2rem;
+    font-size: 16pt;
     color: var(--text-muted);
 }
 
