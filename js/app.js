@@ -244,25 +244,34 @@ const app = {
                 e.preventDefault();
                 const target = e.currentTarget.getAttribute('data-target');
                 this.navigate(target);
-                
-                // Update active class
-                navLinks.forEach(l => l.classList.remove('active'));
-                const sameTargetLinks = document.querySelectorAll(`[data-target="${target}"]`);
-                sameTargetLinks.forEach(l => l.classList.add('active'));
             });
         });
 
         // Initialize view based on hash or default to home
         const initialView = window.location.hash.replace('#', '') || 'home';
         this.navigate(initialView);
+
+        // Listen for browser Back/Forward navigation
+        window.addEventListener('hashchange', () => {
+            const currentView = window.location.hash.replace('#', '') || 'home';
+            // Only re-render if we aren't already on this view to prevent loops
+            this.navigate(currentView, true);
+        });
     },
 
     navigate(viewName) {
         if (views[viewName]) {
             appContent.innerHTML = views[viewName]();
             window.scrollTo(0, 0);
-            window.location.hash = viewName;
+            if(window.location.hash !== '#' + viewName) {
+                window.location.hash = viewName;
+            }
             this.setupDropzones();
+
+            // Update active class in top navigation specifically for browser Back/Forward tracking syncs
+            navLinks.forEach(l => l.classList.remove('active'));
+            const sameTargetLinks = document.querySelectorAll(`[data-target="${viewName}"]`);
+            sameTargetLinks.forEach(l => l.classList.add('active'));
         }
     },
 
