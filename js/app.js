@@ -93,8 +93,37 @@ const views = {
                 <div class="category-card"><div class="category-content"><h3>Jewelry Repair</h3><p>Highest caliber watch battery replacement, rhodium plating, and ring sizing.</p></div></div>
                 <div class="category-card"><div class="category-content"><h3>Appraisals</h3><p>Professional valuations of your coins, bullion, and antiques.</p></div></div>
                 <div class="category-card"><div class="category-content"><h3>Buying</h3><p>We purchase silver, gold, platinum, and historical pieces at fair market price.</p></div></div>
-            </div>
         </div>
+    `,
+    'venmo-setup': () => `
+        <section style="padding: 100px 20px; text-align:center; min-height: 70vh;">
+            <div class="glass-effect" style="max-width: 600px; margin: 0 auto; padding: 40px; border-radius: 16px;">
+                <h2 style="color:#008CFF; margin-bottom:20px;"><i class="fab fa-vimeo-v"></i> Venmo Setup</h2>
+                <p style="margin-bottom:30px; font-size:1.1rem;">Connect your business Venmo account to automatically receive customer payments.</p>
+                <form onsubmit="event.preventDefault(); alert('Venmo Profile linked successfully!'); app.navigate('cart');">
+                    <div class="form-group" style="text-align:left;">
+                        <label style="color:var(--text-color);">Business Venmo Username</label>
+                        <input type="text" placeholder="@yourbusiness" required style="width:100%; padding:15px; margin-top:5px; border-radius:8px; border:1px solid rgba(255,255,255,0.2); background:rgba(0,0,0,0.5); color:white;">
+                    </div>
+                    <button type="submit" class="btn-primary" style="width:100%; padding:15px; background:#008CFF; font-size:1.1rem; border:none; margin-top:20px; cursor:pointer;">Connect Venmo Account</button>
+                </form>
+            </div>
+        </section>
+    `,
+    'cashapp-setup': () => `
+        <section style="padding: 100px 20px; text-align:center; min-height: 70vh;">
+            <div class="glass-effect" style="max-width: 600px; margin: 0 auto; padding: 40px; border-radius: 16px;">
+                <h2 style="color:#00D632; margin-bottom:20px;"><i class="fas fa-dollar-sign"></i> CashApp Setup</h2>
+                <p style="margin-bottom:30px; font-size:1.1rem;">Connect your business CashApp $Cashtag to securely receive instant payouts.</p>
+                <form onsubmit="event.preventDefault(); alert('CashApp connected successfully!'); app.navigate('cart');">
+                    <div class="form-group" style="text-align:left;">
+                        <label style="color:var(--text-color);">Business $Cashtag</label>
+                        <input type="text" placeholder="$YourBusiness" required style="width:100%; padding:15px; margin-top:5px; border-radius:8px; border:1px solid rgba(255,255,255,0.2); background:rgba(0,0,0,0.5); color:white;">
+                    </div>
+                    <button type="submit" class="btn-primary" style="width:100%; padding:15px; background:#00D632; font-size:1.1rem; border:none; margin-top:20px; cursor:pointer;">Connect CashApp Account</button>
+                </form>
+            </div>
+        </section>
     `
 };
 
@@ -176,15 +205,16 @@ function renderCartPage() {
             <h3 style="margin-bottom:15px;">Order Summary</h3>
             <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:15px 0;">
             <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span>Subtotal</span> <span>$${subtotal.toFixed(2)}</span></div>
-            <div style="text-align:center; color:red; font-weight:bold; margin-bottom:10px; width:100%;">Work In Progress</div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span>Estimated Shipping To Address</span> <span style="font-weight:bold; color:red;">In Progress</span></div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span>Estimated Income Tax (7.5%)</span> <span style="font-weight:bold; color:red;">In Progress</span></div>
             <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:15px 0;">
-            <div style="display:flex; justify-content:space-between; margin-bottom:20px; font-size:1.4rem; font-weight:bold; color:var(--gold-primary);"><span>Total</span> <span>$${total.toFixed(2)}</span></div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:20px; font-size:1.4rem; font-weight:bold; color:var(--gold-primary);"><span>Total Include Tax</span> <span>$${total.toFixed(2)}</span></div>
             
             <h4 style="margin-bottom:15px;">Select Payment Method to Checkout</h4>
             <div style="display:flex; gap:10px; width: 100%;">
                 <button class="btn-primary" style="flex:1; padding:10px 5px; font-size:0.85rem; background:#333333; color:white; border:1px solid rgba(255,255,255,0.2);" onclick="app.checkout('Credit/Debit Card')"><i class="fas fa-credit-card"></i> Credit/Debit Card</button>
-                <button class="btn-primary" style="flex:1; padding:10px 5px; font-size:0.85rem; background:#008CFF; color:white; border:none;" onclick="window.open('https://venmo.com/YOUR_VENMO_USERNAME_HERE', '_blank')"><i class="fab fa-vimeo-v"></i> Venmo</button>
-                <button class="btn-primary" style="flex:1; padding:10px 5px; font-size:0.85rem; background:#00D632; color:white; border:none;" onclick="window.open('https://cash.app/$YOUR_CASHAPP_TAG_HERE', '_blank')"><i class="fas fa-dollar-sign"></i> CashApp</button>
+                <button class="btn-primary" style="flex:1; padding:10px 5px; font-size:0.85rem; background:#008CFF; color:white; border:none;" onclick="app.navigate('venmo-setup')"><i class="fab fa-vimeo-v"></i> Venmo</button>
+                <button class="btn-primary" style="flex:1; padding:10px 5px; font-size:0.85rem; background:#00D632; color:white; border:none;" onclick="app.navigate('cashapp-setup')"><i class="fas fa-dollar-sign"></i> CashApp</button>
                 <button class="btn-primary" style="flex:1; padding:10px 5px; font-size:0.85rem; background:#003087; color:white; border:none;" onclick="app.checkout('PayPal')"><i class="fab fa-paypal"></i> PayPal</button>
                 <button class="btn-primary" style="flex:1; padding:10px 5px; font-size:0.85rem; background:#7417ea; color:white; border:none;" onclick="app.checkout('Zelle')">Zelle</button>
                 <button class="btn-primary" style="flex:1; padding:10px 5px; font-size:0.85rem; background:#F7931A; color:white; border:none;" onclick="app.checkout('Cryptocurrency')"><i class="fab fa-bitcoin"></i> Cryptocurrency</button>
