@@ -27,7 +27,7 @@ loginBtn.addEventListener('click', async () => {
         try {
             await signOut(auth);
             alert("You have successfully logged out.");
-            window.location.hash = '#home';
+            window.app.navigate('home');
         } catch (error) {
             console.error("Logout Error:", error);
         }

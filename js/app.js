@@ -205,8 +205,8 @@ function renderCartPage() {
             <h3 style="margin-bottom:15px;">Order Summary</h3>
             <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:15px 0;">
             <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span>Subtotal</span> <span>$${subtotal.toFixed(2)}</span></div>
-            <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span>Estimated Shipping To Address</span> <span style="font-weight:bold; color:red;">In Progress</span></div>
-            <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span>Estimated Income Tax (7.5%)</span> <span style="font-weight:bold; color:red;">In Progress</span></div>
+            <div style="text-align:center; font-weight:bold; color:red; margin-bottom:10px; width:100%;">Estimated Shipping To Address: In Progress</div>
+            <div style="text-align:center; font-weight:bold; color:red; margin-bottom:10px; width:100%;">Estimated Income Tax (7.5%): In Progress</div>
             <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:15px 0;">
             <div style="display:flex; justify-content:space-between; margin-bottom:20px; font-size:1.4rem; font-weight:bold; color:var(--gold-primary);"><span>Total Include Tax</span> <span>$${total.toFixed(2)}</span></div>
             
