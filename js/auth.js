@@ -1,5 +1,6 @@
-// js/auth.js
-// Future Firebase Auth integration
+import { auth, db } from "./firebase-config.js";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+import { doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
 const loginBtn = document.getElementById('login-open-btn');
 const authModal = document.getElementById('auth-modal');
@@ -9,13 +10,26 @@ const authForms = document.querySelectorAll('.auth-form');
 
 let currentUser = null;
 
-// Open/Close Modal
-loginBtn.addEventListener('click', () => {
-    if(currentUser) {
-        // Logout logic
+// Session Persistence Setup
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        currentUser = user;
+        loginBtn.innerText = "Log Out";
+    } else {
         currentUser = null;
         loginBtn.innerText = "Login / Register";
-        alert("You have successfully logged out.");
+    }
+});
+
+// Open/Close Modal
+loginBtn.addEventListener('click', async () => {
+    if(currentUser) {
+        try {
+            await signOut(auth);
+            alert("You have successfully logged out.");
+        } catch (error) {
+            console.error("Logout Error:", error);
+        }
     } else {
         authModal.classList.add('active');
     }
@@ -43,26 +57,43 @@ authTabs.forEach(tab => {
     });
 });
 
-// Form Submissions
-document.getElementById('login-form').addEventListener('submit', (e) => {
+// Login Submission
+document.getElementById('login-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
     
-    // Mock login successful
-    currentUser = { email };
-    loginBtn.innerText = "Log Out";
-    authModal.classList.remove('active');
-    alert(`Welcome back, ${email}!`);
+    try {
+        await signInWithEmailAndPassword(auth, email, password);
+        authModal.classList.remove('active');
+        alert(`Welcome back, ${email}!`);
+    } catch (error) {
+        alert("Login Error: " + error.message);
+    }
 });
 
-document.getElementById('register-form').addEventListener('submit', (e) => {
+// Register Submission
+document.getElementById('register-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = document.getElementById('reg-email').value;
     const username = document.getElementById('reg-username').value;
+    const password = document.getElementById('reg-password').value;
     
-    // Mock register successful
-    currentUser = { email, username };
-    loginBtn.innerText = "Log Out";
-    authModal.classList.remove('active');
-    alert(`Account created successfully for ${username}!`);
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        
+        // Auto-create Account Folder in Firestore Database for tracking future user data
+        await setDoc(doc(db, "users", user.uid), {
+            uid: user.uid,
+            email: email,
+            username: username,
+            createdAt: serverTimestamp()
+        });
+
+        authModal.classList.remove('active');
+        alert(`Account created successfully for ${username}!`);
+    } catch (error) {
+        alert("Registration Error: " + error.message);
+    }
 });

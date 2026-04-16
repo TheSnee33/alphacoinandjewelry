@@ -1,5 +1,4 @@
+firebase.exe
+node.zip
 *.zip
-*.tar.gz
-*.rar
-node_modules/
-.env
+sub_directory_Alphacoin*

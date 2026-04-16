@@ -168,27 +168,23 @@ function renderCartPage() {
     });
     listItemsHtml += `</div>`;
 
-    // Hypothetical shipping & tax calculation
-    const shipping = subtotal > 1000 ? 0 : 25; // Free shipping over $1000, else $25 flat rate
-    const taxRate = 0.075; // 7.5% hypothetical tax
-    const tax = subtotal * taxRate;
-    const total = subtotal + shipping + tax;
+    // Hypothetical shipping substitution requested by client
+    const total = subtotal;
 
     let summaryHtml = `
         <div class="glass-effect" style="padding:30px; border-radius:16px; margin-bottom:30px;">
             <h3 style="margin-bottom:15px;">Order Summary</h3>
             <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:15px 0;">
             <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span>Subtotal</span> <span>$${subtotal.toFixed(2)}</span></div>
-            <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span>Estimated Shipping To Address</span> <span>${shipping === 0 ? 'Free' : '$' + shipping.toFixed(2)}</span></div>
-            <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><span>Estimated Income Tax (7.5%)</span> <span>$${tax.toFixed(2)}</span></div>
+            <div style="text-align:center; color:red; font-weight:bold; margin-bottom:10px; width:100%;">Work In Progress</div>
             <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:15px 0;">
-            <div style="display:flex; justify-content:space-between; margin-bottom:20px; font-size:1.4rem; font-weight:bold; color:var(--gold-primary);"><span>Total Include Tax</span> <span>$${total.toFixed(2)}</span></div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:20px; font-size:1.4rem; font-weight:bold; color:var(--gold-primary);"><span>Total</span> <span>$${total.toFixed(2)}</span></div>
             
             <h4 style="margin-bottom:15px;">Select Payment Method to Checkout</h4>
             <div style="display:flex; gap:10px; width: 100%;">
                 <button class="btn-primary" style="flex:1; padding:10px 5px; font-size:0.85rem; background:#333333; color:white; border:1px solid rgba(255,255,255,0.2);" onclick="app.checkout('Credit/Debit Card')"><i class="fas fa-credit-card"></i> Credit/Debit Card</button>
-                <button class="btn-primary" style="flex:1; padding:10px 5px; font-size:0.85rem; background:#008CFF; color:white; border:none;" onclick="app.checkout('Venmo')"><i class="fab fa-vimeo-v"></i> Venmo</button>
-                <button class="btn-primary" style="flex:1; padding:10px 5px; font-size:0.85rem; background:#00D632; color:white; border:none;" onclick="app.checkout('CashApp')"><i class="fas fa-dollar-sign"></i> CashApp</button>
+                <button class="btn-primary" style="flex:1; padding:10px 5px; font-size:0.85rem; background:#008CFF; color:white; border:none;" onclick="window.open('https://venmo.com/YOUR_VENMO_USERNAME_HERE', '_blank')"><i class="fab fa-vimeo-v"></i> Venmo</button>
+                <button class="btn-primary" style="flex:1; padding:10px 5px; font-size:0.85rem; background:#00D632; color:white; border:none;" onclick="window.open('https://cash.app/$YOUR_CASHAPP_TAG_HERE', '_blank')"><i class="fas fa-dollar-sign"></i> CashApp</button>
                 <button class="btn-primary" style="flex:1; padding:10px 5px; font-size:0.85rem; background:#003087; color:white; border:none;" onclick="app.checkout('PayPal')"><i class="fab fa-paypal"></i> PayPal</button>
                 <button class="btn-primary" style="flex:1; padding:10px 5px; font-size:0.85rem; background:#7417ea; color:white; border:none;" onclick="app.checkout('Zelle')">Zelle</button>
                 <button class="btn-primary" style="flex:1; padding:10px 5px; font-size:0.85rem; background:#F7931A; color:white; border:none;" onclick="app.checkout('Cryptocurrency')"><i class="fab fa-bitcoin"></i> Cryptocurrency</button>
