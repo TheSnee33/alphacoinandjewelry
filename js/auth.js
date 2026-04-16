@@ -9,11 +9,7 @@ const authTabs = document.querySelectorAll('.auth-tab');
 const authForms = document.querySelectorAll('.auth-form');
 
 let currentUser = null;
-
-// Force logout on tab close
-setPersistence(auth, browserSessionPersistence).catch((error) => {
-  console.error("Persistence error:", error);
-});
+// Removed global persistence to prevent race condition
 
 // Sync cart function for app.js to call
 window.syncCart = async () => {
@@ -97,6 +93,7 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
     const password = document.getElementById('login-password').value;
     
     try {
+        await setPersistence(auth, browserSessionPersistence);
         await signInWithEmailAndPassword(auth, email, password);
         authModal.classList.remove('active');
         alert(`Welcome back, ${email}!`);
@@ -113,6 +110,7 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
     const password = document.getElementById('reg-password').value;
     
     try {
+        await setPersistence(auth, browserSessionPersistence);
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
         
