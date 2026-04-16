@@ -1,6 +1,6 @@
 import { auth, db } from "./firebase-config.js";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-import { doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+import { setPersistence, browserSessionPersistence, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+import { doc, setDoc, getDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
 const loginBtn = document.getElementById('login-open-btn');
 const authModal = document.getElementById('auth-modal');
@@ -10,14 +10,46 @@ const authForms = document.querySelectorAll('.auth-form');
 
 let currentUser = null;
 
+// Force logout on tab close
+setPersistence(auth, browserSessionPersistence).catch((error) => {
+  console.error("Persistence error:", error);
+});
+
+// Sync cart function for app.js to call
+window.syncCart = async () => {
+    if(currentUser && window.app) {
+        try {
+            await updateDoc(doc(db, "users", currentUser.uid), {
+                cart: window.app.cartItems
+            });
+        } catch(e) { console.error("Error syncing cart: ", e); }
+    }
+};
+
 // Session Persistence Setup
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
     if (user) {
         currentUser = user;
         loginBtn.innerText = "Log Out";
+        // Restore cart from DB
+        try {
+            const userDoc = await getDoc(doc(db, "users", user.uid));
+            if(userDoc.exists() && userDoc.data().cart) {
+                if(window.app) {
+                    window.app.cartItems = userDoc.data().cart;
+                    window.app.updateCartBadge();
+                    if(window.location.hash.includes('cart')) window.app.navigate('cart');
+                }
+            }
+        } catch (e) { console.error("Cart restore error", e); }
     } else {
         currentUser = null;
         loginBtn.innerText = "Login / Register";
+        if(window.app) {
+            window.app.cartItems = [];
+            window.app.updateCartBadge();
+            if(window.location.hash.includes('cart')) window.app.navigate('cart');
+        }
     }
 });
 

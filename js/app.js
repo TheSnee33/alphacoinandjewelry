@@ -326,6 +326,7 @@ const app = {
         if(item) {
             this.cartItems.push(item);
             this.updateCartBadge();
+            if(window.syncCart) window.syncCart();
         }
     },
 
@@ -333,6 +334,7 @@ const app = {
         this.cartItems.splice(index, 1);
         this.updateCartBadge();
         this.navigate('cart'); // re-render view
+        if(window.syncCart) window.syncCart();
     },
 
     updateCartBadge() {
